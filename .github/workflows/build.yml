@@ -8,7 +8,10 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    env:
+      VERSION_NAME: "1.0.0"
+      VERSION_CODE: "1"
+      
     steps:
       - name: Checkout
         uses: actions/checkout@v4
