@@ -23,16 +23,16 @@ jobs:
 
       - name: Restore Signing Key and Properties
         run: |
-          # 1. 确保 app 目录存在，并将 jks 恢复到 android/app/ 目录下
+          # 1. 确保目录存在，并把 jks 释放到 android/app/upload.jks
           mkdir -p simple_live_app/android/app
           echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > simple_live_app/android/app/upload.jks
-          
-          # 2. 写入 key.properties（存储在 android/ 下）
+
+          # 2. 写入 key.properties，storeFile 改为直接指向 upload.jks（不要带 app/ 前缀）
           cat <<EOF > simple_live_app/android/key.properties
           storePassword=${{ secrets.STORE_PASSWORD }}
           keyPassword=${{ secrets.KEY_PASSWORD }}
           keyAlias=${{ secrets.KEY_ALIAS }}
-          storeFile=app/upload.jks
+          storeFile=upload.jks
           EOF
 
       # 👇 修改：彻底清除遗留的注册文件与 Pub 缓存并重新生成 👇
