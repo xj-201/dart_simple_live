@@ -195,7 +195,7 @@ class DouyuSite implements LiveSite {
   }
 
   @override
-  Future<LiveRoomDetail> getRoomDetail({required String roomId}) async {
+  Future<LiveRoomDetail> getRoomDetail({required String roomId, String? password}) async {
     Map roomInfo = await _getRoomInfo(roomId);
 
     Map h5RoomInfo = await HttpClient.instance.getJson(
