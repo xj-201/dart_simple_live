@@ -19,9 +19,8 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.38.3'   # 根据你使用的 Simple Live 分支调整
+          flutter-version: '3.38.3'
 
-      # 👇 插入新增的还原签名与配置文件步骤 👇
       - name: Restore Signing Key and Properties
         run: |
           echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > simple_live_app/android/upload.jks
@@ -32,15 +31,12 @@ jobs:
           storeFile=upload.jks
           EOF
 
-      - name: Install dependencies
-        run: |
-          cd simple_live_app
-          flutter pub get
-      # 👇 新增：清理旧构建缓存并重新生成 GeneratedPluginRegistrant 👇
-      - name: Clean and Generate Plugin Registrant
+      # 👇 修改：彻底清除遗留的注册文件与 Pub 缓存并重新生成 👇
+      - name: Clean and Force Regenerate Plugin Registrant
         run: |
           cd simple_live_app
           flutter clean
+          rm -f android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java
           flutter pub get
 
       - name: Build APK
