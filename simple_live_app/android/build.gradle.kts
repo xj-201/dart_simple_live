@@ -1,6 +1,6 @@
 plugins {
-    // 强制声明 Kotlin 插件版本为 1.9.20 以兼容 dynamic_color
-    id("org.jetbrains.kotlin.android") version "1.9.20" apply false
+    // 将版本修改为与系统 Classpath 一致的 2.1.0
+    id("org.jetbrains.kotlin.android") version "2.1.0" apply false
 }
 
 allprojects {
