@@ -21,6 +21,17 @@ jobs:
         with:
           flutter-version: '3.38.3'   # 根据你使用的 Simple Live 分支调整
 
+      # 👇 插入新增的还原签名与配置文件步骤 👇
+      - name: Restore Signing Key and Properties
+        run: |
+          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > simple_live_app/android/upload.jks
+          cat <<EOF > simple_live_app/android/key.properties
+          storePassword=${{ secrets.STORE_PASSWORD }}
+          keyPassword=${{ secrets.KEY_PASSWORD }}
+          keyAlias=${{ secrets.KEY_ALIAS }}
+          storeFile=upload.jks
+          EOF
+
       - name: Install dependencies
         run: |
           cd simple_live_app
