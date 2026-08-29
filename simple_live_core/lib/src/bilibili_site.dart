@@ -234,7 +234,7 @@ class BiliBiliSite implements LiveSite {
   }
 
   @override
-  Future<LiveRoomDetail> getRoomDetail({required String roomId}) async {
+  Future<LiveRoomDetail> getRoomDetail({required String roomId, String? password}) async {
     var roomInfo = await getRoomInfo(roomId: roomId);
     var realRoomId = roomInfo["room_info"]["room_id"].toString();
 
